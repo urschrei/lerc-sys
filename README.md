@@ -9,7 +9,23 @@ This crate provides raw, unsafe bindings generated via `bindgen`, and builds the
 
 ## Build
 
-This crate **vendored** the LERC C++ sources and compiles them automatically using `cc`. It does not require a system-installed `libLerc`.
+This crate **vendors** the LERC C++ sources and compiles them automatically using `cc`. It does not require a system-installed `libLerc`.
+
+## WASM Support
+
+For WASM targets (e.g. `wasm32-unknown-emscripten`), this crate uses pregenerated bindings since `bindgen` cannot parse headers for WASM. Native builds generate bindings dynamically via `bindgen`.
+
+### Regenerating Bindings
+
+If you update the vendored liblerc sources, regenerate the pregenerated bindings:
+
+```bash
+# Build for native target (generates fresh bindings via bindgen)
+cargo build
+
+# Copy generated bindings to source tree
+cp target/debug/build/lerc-sys-*/out/bindings.rs src/bindings_pregenerated.rs
+```
 
 ## Status
 
