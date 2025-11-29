@@ -28,8 +28,6 @@ fn build_lerc(is_wasm: bool) {
     // Enable C++ exceptions for WASM (required by LERC library)
     if is_wasm {
         build.flag("-fexceptions");
-        // Emscripten-specific flags for better WASM output
-        build.flag("-sNO_DISABLE_EXCEPTION_CATCHING");
     }
 
     for entry in glob(&format!("{base}/**/*.cpp")).expect("Failed to read glob pattern") {
